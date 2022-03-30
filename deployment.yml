@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kubernetes.io/change-cause: " Snapp-Task"
+  name: calculator-snapp
+  labels:
+    app: calculator          #label for deployment#
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0 
+      maxSurge: 3
+  paused: false
+  replicas: 3 
+  selector:
+    matchLabels:
+      app: calculator                       #bar in asas mikhahim b Deployment befahmoonim k beravad  pod ee ro manage konad k in label ra dashte bashad#
+  template:
+    metadata:
+      labels: 
+        app: calculator                 #label for pod#    
+    spec:
+      containers:
+      - name: calculator
+        image: 192.168.89.13:5000/calculator:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000
+          protocol: TCP
+#        resources:
+#          requests:
+#            memory: "64Mi"
+#            cpu: "100m"
+#          limits: 
+#            memory: "128Mi"
+#            cpu: "200m"
+#        livenessProbe:
+#          httpGet:
+#            path: /
+#            port: 80
+#          initialDelaySeconds: 10
+#          periodSeconds: 10
+#          failureThreshold: 2
+#          tcpSocket:
+#           port: 80
+#         initialDelaySeconds: 15 
+#         periodSeconds: 4
+#         failureThreshold: 7
+#          
+#        readinessProbe:
+#         tcpSocket:
+#           port: 80
+#         initialDelaySeconds: 10
+#         periodSeconds: 5
+#         failureThreshold: 3
+# 
+#          httpGet:
+#             path: /
+#             port: 80
+#             httpHeaders: 
+#              - name: token
+#                value: fooo
+#           periodSeconds: 5
+#           initialDelaySeconds: 10
+#           failureThreshold: 3
+#

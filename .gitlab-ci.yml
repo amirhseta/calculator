@@ -1,0 +1,29 @@
+stages:
+  - building
+  - deploying
+
+variables:
+  CONTAINER_TAG: ${CI_COMMIT_SHORT_SHA}
+
+build-prod-stage:
+  stage: building
+  tags:
+   - docker
+  variables:
+    FF_GITLAB_REGISTRY_HELPER_IMAGE: "false"
+  image: tiangolo/docker-with-compose
+  script:
+    - docker build . -t 192.168.89.13:5000/calculator:latest
+    - docker push  192.168.89.13:5000/calculator:latest
+deploy-prod-stage:
+  stage: deploying
+  tags:
+   - kuber
+  variables:
+    FF_GITLAB_REGISTRY_HELPER_IMAGE: "false"
+  image: tiangolo/docker-with-compose
+  script:
+    - docker stop bmi-calculator || true
+    - docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
+    - docker run --rm -itd -p 3000:3000 --name bmi-calculator calculator:latest
+
