@@ -16,7 +16,7 @@ spec:
   replicas: 3 
   selector:
     matchLabels:
-      app: calculator                       #bar in asas mikhahim b Deployment befahmoonim k beravad  pod ee ro manage konad k in label ra dashte bashad#
+      app: calculator                      
   template:
     metadata:
       labels: 
