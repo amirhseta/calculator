@@ -26,7 +26,7 @@ deploy-prod-stage:
     - ssh amirtaghia@127.0.0.1
     - cd /home/amirtaghia/workspace/calculator
     - echo aA12345 | sudo -S sed -i "s/latest/$CONTAINER_TAG/g" deployment.yml
-    - kubectl apply -f deployment.yml
-    - kubectl apply -f service.yml
-    - kubectl apply -f ingress.yml 
+    - echo aA12345 | sudo -S runuser -l amirtaghia -c "kubectl apply -f deployment.yml"
+    - echo aA12345 | sudo -S runuser -l amirtaghia -c "kubectl apply -f service.yml"
+    - echo aA12345 | sudo -S runuser -l amirtaghia -c "kubectl apply -f ingress.yml" 
 
