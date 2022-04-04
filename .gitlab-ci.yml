@@ -23,8 +23,9 @@ deploy-prod-stage:
   variables:
     FF_GITLAB_REGISTRY_HELPER_IMAGE: "false"
   script:
+    - su  amirtaghia -p aA12345 
     - cd /home/amirtaghia/workspace/calculator
-    - sed -i "s/latest/$CONTAINER_TAG/g" deployment.yml
+    - echo aA12345 | sudo -S sed -i "s/latest/$CONTAINER_TAG/g" deployment.yml
     - kubectl apply -f deployment.yml
     - kubectl apply -f service.yml
     - kubectl apply -f ingress.yml 
