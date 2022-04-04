@@ -13,8 +13,8 @@ build-prod-stage:
     FF_GITLAB_REGISTRY_HELPER_IMAGE: "false"
   image: tiangolo/docker-with-compose
   script:
-    - docker build . -t amirhseta/calculator:latest
-    - docker push  amirhseta/calculator:latest
+    - docker build . -t amirhseta/calculator:$CONTAINER_TAG
+    - docker push  amirhseta/calculator:$CONTAINER_TAG
 deploy-prod-stage:
   stage: deploying
   tags:
@@ -23,7 +23,7 @@ deploy-prod-stage:
     FF_GITLAB_REGISTRY_HELPER_IMAGE: "false"
   image: tiangolo/docker-with-compose
   script:
-    - docker stop bmi-calculator || true
-    - docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
-    - docker run --rm -itd -p 3000:3000 --name bmi-calculator calculator:latest
+    - kubectl delete -f deployment
+    - sed -i 's/"image: 192.168.89.13:5000/calculator:latest"/"image: 192.168.89.13:5000/calculator:$CONTAINER_TAG"/g' deployment.yml
+    - kubectl apply -f deployment.yml
 
