@@ -18,12 +18,13 @@ build-prod-stage:
 deploy-prod-stage:
   stage: deploying
   tags:
-   - kuber
+   - kubernetes
   variables:
     FF_GITLAB_REGISTRY_HELPER_IMAGE: "false"
-  image: tiangolo/docker-with-compose
   script:
-    - kubectl apply -f ingress.yml 
+    - cd /home/amirtaghia/workspace/calculator
     - sed -i 's/"image: amirhseta/calculator:latest"/"image: amirhseta/calculator:$CONTAINER_TAG"/g' deployment.yml
     - kubectl apply -f deployment.yml
+    - kubectl apply -f service.yml
+    - kubectl apply -f ingress.yml 
 
