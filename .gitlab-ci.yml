@@ -24,7 +24,6 @@ deploy-prod-stage:
     FF_GITLAB_REGISTRY_HELPER_IMAGE: "false"
   script:
     - ssh amirtaghia@127.0.0.1
-    - cd /home/amirtaghia/workspace/calculator
     - echo aA12345 | sudo -S sed -i "s/latest/$CONTAINER_TAG/g" deployment.yml
     - echo aA12345 | sudo -S runuser -l amirtaghia -c "kubectl apply -f deployment.yml"
     - echo aA12345 | sudo -S runuser -l amirtaghia -c "kubectl apply -f service.yml"
