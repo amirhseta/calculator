@@ -24,6 +24,6 @@ deploy-prod-stage:
   image: tiangolo/docker-with-compose
   script:
     - kubectl delete -f deployment
-    - sed -i 's/"image: 192.168.89.13:5000/calculator:latest"/"image: 192.168.89.13:5000/calculator:$CONTAINER_TAG"/g' deployment.yml
+    - sed -i 's/"image: amirhseta/calculator:latest"/"image: amirhseta/calculator:$CONTAINER_TAG"/g' deployment.yml
     - kubectl apply -f deployment.yml
 
