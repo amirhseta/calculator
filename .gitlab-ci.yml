@@ -23,7 +23,7 @@ deploy-prod-stage:
     FF_GITLAB_REGISTRY_HELPER_IMAGE: "false"
   image: tiangolo/docker-with-compose
   script:
-    - kubectl delete -f deployment
+    - kubectl apply -f ingress.yml 
     - sed -i 's/"image: amirhseta/calculator:latest"/"image: amirhseta/calculator:$CONTAINER_TAG"/g' deployment.yml
     - kubectl apply -f deployment.yml
 

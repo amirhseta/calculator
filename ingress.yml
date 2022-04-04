@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1 
+kind: Ingress
+metadata:
+ name: calculator-ingress
+spec:
+ rules:
+ - host: snapp.example.com
+   http:
+    paths:
+    - path: / 
+      pathType: Prefix
+      backend:
+       service:
+          name: nodeport-service
+          port:
+            number: 90 
