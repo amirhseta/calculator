@@ -19,9 +19,9 @@ build-prod-stage:
     - docker build . -t amirhseta/calculator:$CONTAINER_TAG
     - docker push  amirhseta/calculator:$CONTAINER_TAG
 deploy-prod-stage:
-  stage: production
+  stage: deploying
   tags:
-   - kubernetes
+   - production
   variables:
     FF_GITLAB_REGISTRY_HELPER_IMAGE: "false"
   script:
