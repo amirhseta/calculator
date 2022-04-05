@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
       - name: calculator
-        image: amirhseta/calculator:latest
+        image: amirhseta/calculator:09b43969
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3000
