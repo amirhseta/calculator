@@ -24,8 +24,9 @@ deploy-prod-stage:
    - production
   variables:
     FF_GITLAB_REGISTRY_HELPER_IMAGE: "false"
+  image: tiangolo/docker-with-compose
   script:
-    - echo aA12345 | sudo -S sed -i "s/latest/$CONTAINER_TAG/g" deployment.yml
+    - sed -i "s/latest/$CONTAINER_TAG/g" deployment.yml
     - kubectl apply -f deployment.yml
     - kubectl apply -f service.yml
     - kubectl apply -f ingress.yml 
