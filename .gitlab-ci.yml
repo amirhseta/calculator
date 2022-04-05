@@ -10,7 +10,7 @@ variables:
 build-prod-stage:
   stage: building
   tags:
-   - builder
+   - production
   variables:
     FF_GITLAB_REGISTRY_HELPER_IMAGE: "false"
   image: tiangolo/docker-with-compose
