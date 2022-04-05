@@ -19,15 +19,14 @@ build-prod-stage:
     - docker build . -t amirhseta/calculator:$CONTAINER_TAG
     - docker push  amirhseta/calculator:$CONTAINER_TAG
 deploy-prod-stage:
-  stage: deploying
+  stage: production
   tags:
    - kubernetes
   variables:
     FF_GITLAB_REGISTRY_HELPER_IMAGE: "false"
   script:
-    - ssh amirtaghia@127.0.0.1
     - echo aA12345 | sudo -S sed -i "s/latest/$CONTAINER_TAG/g" deployment.yml
-    - echo aA12345 | sudo -S runuser -l amirtaghia -c "kubectl apply -f deployment.yml"
-    - echo aA12345 | sudo -S runuser -l amirtaghia -c "kubectl apply -f service.yml"
-    - echo aA12345 | sudo -S runuser -l amirtaghia -c "kubectl apply -f ingress.yml" 
+    - kubectl apply -f deployment.yml
+    - kubectl apply -f service.yml
+    - kubectl apply -f ingress.yml 
 
