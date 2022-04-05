@@ -24,7 +24,7 @@ deploy-prod-stage:
    - builder
   variables:
     FF_GITLAB_REGISTRY_HELPER_IMAGE: "false"
-    image: tiangolo/docker-with-compose
+    image: dtzar/helm-kubectl
   script:
     - sed -i "s/latest/$CONTAINER_TAG/g" deployment.yml
     - kubectl apply -f deployment.yml
