@@ -21,7 +21,7 @@ build-prod-stage:
 deploy-prod-stage:
   stage: deploying
   tags:
-   - builder
+   - deploy
   variables:
     FF_GITLAB_REGISTRY_HELPER_IMAGE: "false"
     image: dtzar/helm-kubectl
