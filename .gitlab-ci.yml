@@ -21,10 +21,10 @@ build-prod-stage:
 deploy-prod-stage:
   stage: deploying
   tags:
-   - production
+   - ssh
   variables:
     FF_GITLAB_REGISTRY_HELPER_IMAGE: "false"
-  image: tiangolo/docker-with-compose
+    #image: tiangolo/docker-with-compose
   script:
     - sed -i "s/latest/$CONTAINER_TAG/g" deployment.yml
     - kubectl apply -f deployment.yml
