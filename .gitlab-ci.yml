@@ -5,6 +5,8 @@ stages:
 variables:
   CONTAINER_TAG: ${CI_COMMIT_SHORT_SHA}
 
+before_script:
+  - docker login -u amirhseta -p 13771377a
 build-prod-stage:
   stage: building
   tags:
