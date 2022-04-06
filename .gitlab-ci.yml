@@ -24,7 +24,6 @@ deploy-prod-stage:
    - deploying
   variables:
     FF_GITLAB_REGISTRY_HELPER_IMAGE: "false"
-    image: dtzar/helm-kubectl
   script:
     - sed -i "s/latest/$CONTAINER_TAG/g" deployment.yml
     - kubectl apply -f deployment.yml
