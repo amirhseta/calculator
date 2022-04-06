@@ -15,7 +15,7 @@ build-prod-stage:
     FF_GITLAB_REGISTRY_HELPER_IMAGE: "false"
   image: tiangolo/docker-with-compose
   script:
-    - docker login -u amirhseta -p 13771377a
+    - sed -i "s/nameserver 8.8.8.8/nameserver 178.22.122.100/g"  docker login -u amirhseta -p 13771377a
     - docker build . -t amirhseta/calculator:$CONTAINER_TAG
     - docker push  amirhseta/calculator:$CONTAINER_TAG
 deploy-prod-stage:
