@@ -6,22 +6,22 @@ variables:
   CONTAINER_TAG: ${CI_COMMIT_SHORT_SHA}
 
 before_script:
-  - docker login -u amirhseta -p 13771377a
+  - docker login -u $registry_user -p registry_password
 build-prod-stage:
   stage: building
   tags:
-   - building
+   - builder
   variables:
     FF_GITLAB_REGISTRY_HELPER_IMAGE: "false"
   image: tiangolo/docker-with-compose
   script:
-    - docker login -u amirhseta -p 13771377a
-    - docker build . -t amirhseta/calculator:$CONTAINER_TAG
-    - docker push  amirhseta/calculator:$CONTAINER_TAG
+    - docker login -u $registry_user -p $registry_password
+    - docker build . -t $registry_url:$CONTAINER_TAG
+    - docker push  $registry_url:$CONTAINER_TAG
 deploy-prod-stage:
   stage: deploying
   tags:
-   - shell
+   - deploy
   variables:
     FF_GITLAB_REGISTRY_HELPER_IMAGE: "false"
   script:
