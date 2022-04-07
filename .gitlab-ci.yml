@@ -6,7 +6,7 @@ variables:
   CONTAINER_TAG: ${CI_COMMIT_SHORT_SHA}
 
 before_script:
-  - docker login -u $registry_user -p $registry_password
+  - docker login -u $REGISTRY_USER -p $REGISTRY_PASSWORD
 build-prod-stage:
   stage: building
   tags:
@@ -15,9 +15,9 @@ build-prod-stage:
     FF_GITLAB_REGISTRY_HELPER_IMAGE: "false"
   image: tiangolo/docker-with-compose
   script:
-    - docker login -u $registry_user -p $registry_password
-    - docker build . -t $registry_url:$CONTAINER_TAG
-    - docker push  $registry_url:$CONTAINER_TAG
+    - docker login -u $REGISTRY_USER -p $REGISTRY_PASSWORD
+    - docker build . -t $REGISTRY_URL:$CONTAINER_TAG
+    - docker push  $REGISTRY_URL:$CONTAINER_TAG
 deploy-prod-stage:
   stage: deploying
   tags:
