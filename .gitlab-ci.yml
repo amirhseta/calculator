@@ -1,6 +1,5 @@
 stages:
   - build
-  - test
   - deploy
 
 cache:
@@ -26,17 +25,6 @@ build-stage:
     - docker login -u $REGISTRY_USER -p $REGISTRY_PASSWORD
     - docker build . -t $REGISTRY_URL:$CONTAINER_TAG
     - docker push  $REGISTRY_URL:$CONTAINER_TAG
-
-test-stage:
-  stage: test
-  tags:
-    - builder
-  image: $REGISTRY_URL:$CONTAINER_TAG
-  needs:
-    - build-stage
-  script: npm run test
-
-
 deploy-stage:
   stage: deploy
   tags:
@@ -45,7 +33,6 @@ deploy-stage:
     FF_GITLAB_REGISTRY_HELPER_IMAGE: "false"
   needs:
     - build-stage
-    - test-stage
   script:
     - sed -i "s/:latest/:$CONTAINER_TAG/g" deployment.yml
     - kubectl apply -f deployment.yml
