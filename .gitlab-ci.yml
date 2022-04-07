@@ -1,14 +1,24 @@
 stages:
-  - building
-  - deploying
+  - build
+  - test
+  - deploy
+
+cache:
+  key:
+    files:
+      - package-lock.json
+  paths:
+    - node_modules/
 
 variables:
   CONTAINER_TAG: ${CI_COMMIT_SHORT_SHA}
 
 before_script:
   - docker login -u $REGISTRY_USER -p $REGISTRY_PASSWORD
-build-prod-stage:
-  stage: building
+
+
+build-stage:
+  stage: build
   tags:
    - builder
   variables:
@@ -18,8 +28,16 @@ build-prod-stage:
     - docker login -u $REGISTRY_USER -p $REGISTRY_PASSWORD
     - docker build . -t $REGISTRY_URL:$CONTAINER_TAG
     - docker push  $REGISTRY_URL:$CONTAINER_TAG
-deploy-prod-stage:
-  stage: deploying
+
+test-stage:
+  stage: test
+  needs:
+    - build-stage
+  script: npm run test
+
+
+deploy-stage:
+  stage: deploy
   tags:
    - deployer
   variables:
