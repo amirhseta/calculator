@@ -32,25 +32,21 @@ spec:
 
         resources:
           requests:
-            memory: "128Mi"
+            memory: "256Mi"
             cpu: "100m"
           limits: 
-            memory: "128Mi"
+            memory: "400Mi"
             cpu: "200m"
 
         livenessProbe:
-          httpGet:
-            path: /
+          tcpSocket:
             port: 3000
           initialDelaySeconds: 5
-          periodSeconds: 5
-          failureThreshold: 10
+          periodSeconds: 10
 
         readinessProbe:
-         httpGet:
-           path: /      
+           tcpSocket:
            port: 3000
          initialDelaySeconds: 10
          periodSeconds: 5
-         failureThreshold: 3
  
