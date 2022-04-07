@@ -38,13 +38,15 @@ spec:
             memory: "128Mi"
             cpu: "200m"
 
-        livenessProbe:
-         tcpSocket:
-           port: 3000
-         initialDelaySeconds: 15 
-         periodSeconds: 4
-         failureThreshold: 7
-          
+            #        livenessProbe:
+            #         tcpSocket:
+            #           port: 3000
+            #         initialDelaySeconds: 15 
+            #         periodSeconds: 4
+            #         failureThreshold: 7
+            #          
+            #
+            #
         readinessProbe:
          tcpSocket:
            port: 3000
@@ -52,3 +54,13 @@ spec:
          periodSeconds: 5
          failureThreshold: 3
  
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 3000
+            httpHeaders:
+            - name: /
+              value: Awesome
+          initialDelaySeconds: 5
+          periodSeconds: 5
+
