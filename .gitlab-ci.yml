@@ -21,7 +21,7 @@ build-prod-stage:
 deploy-prod-stage:
   stage: deploying
   tags:
-   - deploy
+   - deployer
   variables:
     FF_GITLAB_REGISTRY_HELPER_IMAGE: "false"
   script:
