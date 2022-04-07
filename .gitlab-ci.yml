@@ -8,7 +8,7 @@ cache:
     files:
       - package-lock.json
   paths:
-    - node_modules/
+    - /app/node_modules/
 
 variables:
   CONTAINER_TAG: ${CI_COMMIT_SHORT_SHA}
@@ -31,6 +31,8 @@ build-stage:
 
 test-stage:
   stage: test
+  tags:
+    - builder
   needs:
     - build-stage
   script: npm run test
@@ -42,6 +44,9 @@ deploy-stage:
    - deployer
   variables:
     FF_GITLAB_REGISTRY_HELPER_IMAGE: "false"
+  needs:
+    - build-stage
+    - test-stage
   script:
     - sed -i "s/:latest/:$CONTAINER_TAG/g" deployment.yml
     - kubectl apply -f deployment.yml
