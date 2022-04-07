@@ -25,7 +25,7 @@ deploy-prod-stage:
   variables:
     FF_GITLAB_REGISTRY_HELPER_IMAGE: "false"
   script:
-    - sed -ie "s/calculator:[[:alnum:]{8}|latest/$CONTAINER_TAG/g" deployment.yml
+    - sed -i -e "s/calculator:[[:alnum:]{8}|latest/$CONTAINER_TAG/g" deployment.yml
     - kubectl apply -f deployment.yml
     - kubectl apply -f service.yml
     - kubectl apply -f ingress.yml 
