@@ -44,5 +44,6 @@ deploy-stage:
     - kubectl apply -f service.yml
     - kubectl apply -f ingress.yml 
   only:
-   - develop
+   - master
+
 
