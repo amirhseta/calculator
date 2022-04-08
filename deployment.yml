@@ -4,6 +4,7 @@ metadata:
   annotations:
     kubernetes.io/change-cause: " Snapp-Task"
   name: calculator
+  namespace: snapp
   labels:
     app: calculator          #label for deployment#
 spec:
