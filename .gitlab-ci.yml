@@ -27,7 +27,6 @@ build-stage:
     - docker push  $REGISTRY_URL:$CONTAINER_TAG
   only:
   - master
-  - tags
 
 
 deploy-stage:
@@ -44,4 +43,6 @@ deploy-stage:
     - kubectl apply -f deployment.yml
     - kubectl apply -f service.yml
     - kubectl apply -f ingress.yml 
+  only:
+   - develop
 
