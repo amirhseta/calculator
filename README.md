@@ -1,25 +1,31 @@
-## BMI Calculator
+![snapp-task](https://user-images.githubusercontent.com/70238195/162207153-8c56c5bb-9aa2-46fe-8e99-1b687b4cad3b.jpg)
 
-[![Build Status](https://travis-ci.com/GermaVinsmoke/bmi-calculator.svg?branch=master)](https://travis-ci.com/GermaVinsmoke/bmi-calculator)
-[![Coverage Status](https://coveralls.io/repos/github/GermaVinsmoke/bmi-calculator/badge.svg?branch=master)](https://coveralls.io/github/GermaVinsmoke/bmi-calculator?branch=master)
-[![codecov](https://codecov.io/gh/GermaVinsmoke/bmi-calculator/branch/master/graph/badge.svg)](https://codecov.io/gh/GermaVinsmoke/bmi-calculator)
+###
+`I also use ingress for expossing service externally.`
+`althought I could use loadbalancer and nodeport service to expose my application to external clients,have a lot of cost for us.`
+`Because when we use loadbalancer servcie , for example in cloud providers , a load balancer is created for every loadbalancer servcice and each loadbalancer service requires own loadbalaner with its own public IP address. Whereass  in ingress only require ones, even providing dozen of service. when a client send HTTP request to ingress the host and path in the request determine which service the request is forwarded to.
+Ingresses operate at the application layer of the network stack (HTTP)`
 
-React Hooks app to calculate the BMI of a person. It can store the data for 7 days with the help of LocalStorage.
+in root directory of project I also create a several file:
 
-![](images/1.jpg)
+`Dockerfile:`
+  in Dockerfile we have two stage that the first stage is building the source code and install dependencies. next stage is copying that all files and dependecies into the image that container needs to start application from build stage. and we start application with “npm start” in CMD field
 
-Created with _create-react-app_. See the [full create-react-app guide](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
+`.gitlab-ci.yml`
+   I write a pipeline to build and deploy the source code into production environment automatically
+    we have two stage in this pipeline:  build and deploy
+    In build stage we use machine to build source code that has builder
+    tag . We should login to registry, it can be public or private.for example I login to my
+    public dockerhub  that it’s address is `amirhseta/calculator`  with my own credential that
+    I definde them as variable before pushing my code to Gitlab-repository with $REGISTRY_USER
+    and REGISTRY_PASSWORD and  aslo I define the url of my dockerhub as variable with
+    $REGISTRY_URL.after that we build image and push it dockerhub.
+    Then In deploy stage we use runner that has deployer tag and kubernetes machine is ready there.
+    We deploy three files in kubernetes machine that we have created there a cluster with minikube
+    1-namespace.yml:  in this file we create a snapp namespace.
+    2-deployment.yml: in this file I write the manifest of my application.
+    3-service.yml: in this file I write the service that route traffic to pods.
+    4-ingress.yml: in this file I write the manifest of ingress that route traffic from external client to
+         service.
+~                
 
-## Install
-
-`npm install`
-
-## Usage
-
-`npm start`
-
-## Enhancement
-
-1. Removing the dependency of Materialize-CSS module
-
-~~2. Chart going crazy on hovering over the old points~~
