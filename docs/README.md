@@ -7,7 +7,6 @@
 `Because when we use loadbalancer servcie , for example in cloud providers , a load balancer is created for every loadbalancer servcice and each loadbalancer service requires own loadbalaner with its own public IP address. Whereass  in ingress only require ones, even providing dozen of service. when a client send HTTP request to ingress the host and path in the request determine which service the request is forwarded to.
 Ingresses operate at the application layer of the network stack (HTTP)`
 
-you can see the view of project in docs direcory in the root of the repository.
 in root directory of project I also create a several file:
 
 `Dockerfile:`
