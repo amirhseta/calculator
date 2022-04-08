@@ -25,6 +25,11 @@ build-stage:
     - docker login -u $REGISTRY_USER -p $REGISTRY_PASSWORD
     - docker build . -t $REGISTRY_URL:$CONTAINER_TAG
     - docker push  $REGISTRY_URL:$CONTAINER_TAG
+  only:
+  - master
+  - tags
+
+
 deploy-stage:
   stage: deploy
   tags:

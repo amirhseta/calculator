@@ -18,7 +18,6 @@ USER node
 WORKDIR /app
 COPY --chown=node:node ./ /app
 COPY --chown=node:node --from=build /app/node_modules /app/node_modules
-#
-#EXPOSE 3000 
+EXPOSE 3000 
 CMD [ "npm", "start"]
 
