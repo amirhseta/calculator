@@ -14,3 +14,4 @@ spec:
           name: nodeport-service
           port:
             number: 80 
+
